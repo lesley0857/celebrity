@@ -94,9 +94,9 @@ class jview(View):
         create_reply = Replies.objects.create()
 
         #comments_for_reply = Comments.objects.filter(posts_id=post_id.id)
-        print(comments_for_reply[0].filefield.url)
+        #print(comments_for_reply[0].filefield.url)
         #reply = Replies.objects.filter(comments_id=comments_for_reply.id)
-#        print(reply)
+#        #print(reply)
         form = create_post(request.POST,request.FILES)
 
         context = {'form': form, 'posts': posts, 'comments': comments}

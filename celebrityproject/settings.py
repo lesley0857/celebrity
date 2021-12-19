@@ -219,6 +219,6 @@ ACCOUNT_EMAIL_REQUIRED=True
 SOCIALACCOUNT_AUTO_SIGNUP = True
 ACCOUNT_EMAIL_VERIFICATION="mandatory"
 
-ACCOUNT_ADAPTER = 'celebrityapp.views.CustomAllauthAdapter'
-BASE_URL = 'http://127.0.0.1:8000/'
+ACCOUNT_ADAPTER = 'celebrityaphttps://itzdestinypiz.herokuapp.com/p.views.CustomAllauthAdapter'
+BASE_URL = 'https://itzdestinypiz.herokuapp.com/'
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
