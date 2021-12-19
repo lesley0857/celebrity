@@ -1,0 +1,42 @@
+ul#css3menu0{
+	margin:0;list-style:none;padding:0 3px 3px;background-color:#424542;border-width:2px;border-style:solid;border-color:#FFF;-moz-border-radius:7px;-webkit-border-radius:7px;border-radius:7px;font-size:0;z-index:999;position:relative;display:block;float:left;}
+ul#css3menu0 li{
+	display:block;white-space:nowrap;font-size:0;}
+ul#css3menu0>li{
+	margin:3px 0 0;}
+ul#css3menu0 a:active, ul#css3menu0 a:focus{
+	outline-style:none;}
+ul#css3menu0 a{
+	display:block;vertical-align:middle;text-align:left;text-decoration:none;font:14px "Arial Black",Gadget,sans-serif;color:#FFF;cursor:pointer;padding:10px;background-color:#424542;background-image:none;background-repeat:repeat;border-width:1px 0 0 0;border-style:solid;border-color:#424542;border-radius:4px;-moz-border-radius:4px;-webkit-border-radius:4px;}
+ul#css3menu0 li:hover>a,ul#css3menu0 li a.pressed{
+	background-color:#ffa202;border-color:#424542;border-style:solid;color:#FFF;background-image:url("mainbk.png");}
+ul#css3menu0 img{
+	border:none;vertical-align:middle;margin-right:10px;}
+ul#css3menu0 > li.switch{
+	display:none;cursor:pointer;width:25px;height:20px;padding:10px;}
+ul#css3menu0 > li.switch:before{
+	content:"";position:absolute;display:block;height:4px;width:25px;border-radius:4px;background:#FFF;-moz-box-shadow:0 8px #FFF, 0 16px #FFF;-webkit-box-shadow:0 8px #FFF, 0 16px #FFF;box-shadow:0 8px #FFF, 0 16px #FFF;}
+ul#css3menu0 > li.switch:hover:before{
+	background:#FFF;-moz-box-shadow:0 8px #FFF, 0 16px #FFF;-webkit-box-shadow:0 8px #FFF, 0 16px #FFF;box-shadow:0 8px #FFF, 0 16px #FFF;}
+.c3m-switch-input{
+	display:none;}
+ul#css3menu0 li:hover>a,ul#css3menu0 li > a.pressed{
+	background-color:#ffa202;background-image:url("mainbk.png");border-style:solid;border-color:#424542;color:#FFF;text-decoration:none;}
+ul#css3menu0 li.topfirst>a{
+	border-width:0;}
+@media screen and (max-width: 768px) {
+	ul#css3menu0 > li {
+		position: initial;}
+	ul#css3menu0 ul .submenu,ul#css3menu0 li > ul {
+		left: 0; right:auto; top: 100%;}
+	ul#css3menu0 .submenu,ul#css3menu0 ul,ul#css3menu0 .column {
+		-webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box;padding-right: 0;width: 100% !important;}
+}
+@media screen and (max-width: 157px) {
+	ul#css3menu0 {
+		width: 100%;}
+	ul#css3menu0 > li {
+		display: none;		position: relative;		width: 100% !important;}
+	ul#css3menu0 > li.switch,.c3m-switch-input:checked + ul#css3menu0 > li + li {
+		display: block;}
+	ul#css3menu0 > li.switch > label {		position: absolute;cursor: pointer;top: 0;left: 0;right: 0;bottom: 0;}}

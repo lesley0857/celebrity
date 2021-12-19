@@ -1,0 +1,94 @@
+{% extends 'be/base.html' %}
+{% load static %}
+{% load commentserializer %}
+<!DOCTYPE html>
+<html lang="en">
+
+        {% block extrahead %}
+
+    <meta charset="UTF-8">
+    <title>Title</title>
+        <link rel="stylesheet" href=" {% static 'assets/css/bootstrap.min.css ' %} " type="text/css">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/j.css'  %}" >
+
+     {% endblock extrahead %}
+<body>
+
+
+    {% block content %}
+<!-- Contenedor Principal -->
+	<div class="comments-container container col-xs-12 col-sm-6 col-md-3 ">
+		<h1>Comentarios <a href="http://creaticode.com">creaticode.com</a></h1>
+        {% for i in posts %}
+           {{i.details}}
+         {% if i.filee %}
+        <img  alt="pic" src="{{i.filee.url}}" height="100">
+         {% endif %}
+
+        {% if i.content %}
+        <video src=" {{i.content.url}} " playsinline >kl</video>
+        {% endif %}
+
+
+         <form method="post" action="" enctype="multipart/form-data"  id="Update" style="height:100px;"> {% csrf_token%}
+            {{form.details}}
+          </p><input type="submit" >
+        </form>
+         <div style=" " class="col-xs-12 col-sm-6 col-md-3 ">
+		   {% for j in i.id|commentss %}
+				<ul id="comments-list" class=" col-xs-12 col-sm-6 col-md-3">
+					<li>
+						<div class="comment-main-level">
+							<!-- Avatar -->
+							<div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg" alt=""></div>
+							<!-- Contenedor del Comentario -->
+							<div class="comment-box">
+								<div class="comment-head">
+									<h6 class="comment-name by-author"><a href="http://creaticode.com/blog"> {{j.customer.name}}</a></h6>
+									<span> {{j.created|timesince}} ago</span>
+									<i class="fa fa-reply"></i>
+									<i class="fa fa-heart"></i>
+								</div>
+								<div class="comment-content">
+									 {{j.comment}}
+								</div>
+							</div>
+						</div>
+                        {% for k in j.id|replyy %}
+                             <!-- Respuestas de los comentarios -->
+                            <ul class="comments-list reply-list">
+                                <li>
+                                    <!-- Avatar -->
+                                    <div class="comment-avatar"><img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_2_zps7de12f8b.jpg" alt=""></div>
+                                    <!-- Contenedor del Comentario -->
+                                    <div class="comment-box">
+                                        <div class="comment-head">
+                                            <h6 class="comment-name"><a href="http://creaticode.com/blog"> {{k.customer.name}}</a></h6>
+                                            <span> {{k.created|timesince}} ago.</span>
+                                            <i class="fa fa-reply"></i>
+                                            <i class="fa fa-heart"></i>
+                                        </div>
+                                        <div class="comment-content">
+                                             {{k.reply}}
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+
+		                {% endfor %}
+					</li>
+				</ul>
+
+		   {% endfor %}
+             <hr>
+         </div>
+        {% endfor %}
+
+	</div>
+
+
+{% endblock content %}
+
+</body>
+</html>

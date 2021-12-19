@@ -1,0 +1,245 @@
+{% extends "account/base.html" %}
+{% load static %}
+{% load commentserializer %}
+<!doctype html>
+                        <html>
+
+{% block extrahead %}
+
+
+{% endblock extrahead %}
+
+         {% block body %}
+
+                                <meta charset='utf-8'>
+                                <meta name='viewport' content='width=device-width, initial-scale=1'>
+                                <title>Itzdestinypiz-blog</title>
+                                    <link rel="stylesheet" href="{% static 'css/assets/css/style.css' %} " type="text/css">
+                                    <link href="{% static 'css/assets/css/cstyle.css' %} " rel="stylesheet">
+                                  <link rel="stylesheet" href="{% static 'css/assets/css/bootstrap.min.css' %}" type="text/css">
+                                  <link rel="stylesheet" href="{% static 'css/assets/css/animate.min.css' %} " type="text/css">
+                                 <link href="{% static 'css/assets/owl-carousel/owl.carousel.css' %} " rel="stylesheet">
+                                 <link href="{% static 'css/assets/owl-carousel/owl.theme.css' %} " rel="stylesheet">
+
+                                <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css' rel='stylesheet' type="text/css">
+                                <link href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet' type="text/css">
+                                <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+   <style>
+
+body{
+     background-image:url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQw_sPK6kanOVDu91T5SoPwYW02Gw18SQpgVRopSE9ClAH37QLJSlxTgkopiU0BOxt41nE&usqp=CAU");
+     background-size:cover;
+     }
+
+.bdge {
+    height: 21px;
+    background-color: orange;
+    color: #fff;
+    font-size: 11px;
+    padding: 8px;
+    border-radius: 4px;
+    line-height: 3px
+}
+
+.comments {
+    text-decoration: underline;
+    text-underline-position: under;
+    cursor: pointer
+}
+
+.dot {
+    height: 7px;
+    width: 7px;
+    margin-top: 3px;
+    background-color: #bbb;
+    border-radius: 50%;ce
+    display: inline-block
+}
+
+.hit-voting:hover {
+    color: blue
+}
+
+.hit-voting {
+    cursor: pointer
+}
+
+.servicedrop {
+    transition-delay: 1s
+}
+
+.action-collapse {
+    cursor: pointer
+}
+</style>
+
+
+
+
+                                <body oncontextmenu='return false' class='snippet-body'>
+
+
+                                  {% for i in posts %}
+
+                                <div class="container mt-5 mb-5">
+    <div class="d-flex justify-content-center row">
+        <div class="d-flex flex-column col-md-8">
+            <div class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white border-bottom px-4" style="background-image:url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYGrordsC6FvJVPsDoJ-lLLh1Kf8bEoSkSRg&usqp=CAU);">
+                <div class="profile-image"><img class="rounded-circle" src="{{request.user.customer.profile_pic.url}}" width="70"></div>
+                <div class="d-flex flex-column-reverse flex-grow-0 align-items-center votings ml-1"></div>
+                <div class="d-flex flex-column ml-3">
+                    <div class="d-flex flex-row post-title">
+                        <h5>{{i.details}}</h5><span class="ml-2">(Jesshead)</span>
+                    </div>
+                    <div class="d-flex flex-row align-items-center align-content-center post-title">
+                        {% if i.filefield %}
+                        <span class="bdge mr-1">video</span>
+                        {% endif %}
+
+                        {% if i.image %}
+                        <span class="bdge mr-1">image</span>s
+                        {% endif %}
+                        <span class="mr-2 comments">{% if i.id|no_commentss > 1 %} {{i.id|no_commentss}} comments {% endif %}
+                                      {% if i.id|no_commentss < 2 %} {{i.id|no_commentss}} comment {% endif %}</span><span class="mr-2 dot"></span><span>{{i.created|timesince}} ago </span>
+                    </div>
+                </div>
+            </div>
+
+            {% if i.image %}
+            <div>
+                <img src="{{ i.image.url }}" width="90%">
+            </div>
+            {% endif %}
+
+            {% if i.filefield %}
+            <div width="90%">
+                <video src=" {{i.filefield.url}} " playsinline >kl</video>
+            </div>
+            {% endif %}
+
+            <div class="coment-bottom bg-white p-2 px-4">
+                <form method="post" action="" enctype="multipart/form-data">
+                   {% csrf_token %}
+                    <!--{{form.details}}-->
+                    {{form.filefield}}
+                    <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+                        {% if request.user.customer.profile_pic %}
+                        <img class="img-fluid img-responsive rounded-circle mr-2" src="{{request.user.customer.profile_pic.url}}" width="38">
+                        {% endif %}
+
+                          <textarea class="form-control ml-1 shadow-none textarea" name="details" placeholder="comment"></textarea>
+                          <input type="hidden" value="{{i.id}}"name="idd">
+                        <button class="btn btn-primary" type="submit">Comment</button>
+                    </div>
+                </form>
+
+                <div class="collapsable-comment">
+                    <div class="d-flex flex-row justify-content-between align-items-center action-collapse p-2" data-toggle="collapse" aria-expanded="false" aria-controls="collapse-{{i.id}}" href="#collapse-{{i.id}}">
+                        <span>
+                            {% if i.id|no_commentss < 2 %}
+                               {{i.id|no_commentss}} Comment
+                            {% endif %}
+
+                            {% if i|no_commentss > 1 %}
+                               {{i.id|no_commentss}} Comments
+                            {% endif %}
+                        </span><i class="fa fa-chevron-down servicedrop"></i></div>
+
+                    <div id="collapse-{{i.id}}" class="collapse">
+                        {% for j in i.id|commentss %}
+                        <div class="commented-section mt-2">
+                            <div class="d-flex flex-row align-items-center commented-user">
+                                {% if j.customer.profile_pic %}
+                                <img class="img-fluid img-responsive rounded-circle mr-2" src="{{j.customer.profile_pic.url}}" width="38">
+                                {% endif %}
+                                <h5 class="mr-2">{{j.customer.name}}</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">{{j.created|timesince}} ago </span>
+                            </div>
+                            {% if j.filefield %}
+                            <div><img class="img-fluid img-responsive  mr-2" src="{{j.filefield.url}}" width="50"></div>
+                            {% endif %}
+                            <div class="comment-text-sm"><span>{{j.comment_text}}</span></div>
+                            <div class="reply-section">
+                                <div class="d-flex flex-row align-items-center voting-icons" data-toggle="collapse" aria-expanded="false" aria-controls="lapse-{{j.id}}" href="#lapse-{{j.id}}">
+                                    <i class="fa fa-sort-up fa-2x mt-3 hit-voting"></i><i class="fa fa-sort-down fa-2x mb-3 hit-voting"></i>
+                                    <span class="ml-2">
+                                        {% if j.id|no_reply < 2 %}
+                                          {{j.id|no_reply}}
+                                        {% endif %}
+
+                                        {% if j.id|no_reply > 1 %}
+                                           {{j.id|no_reply}}
+                                        {% endif %}
+                                    </span>
+                                    <span class="dot ml-2"></span>
+                                    <h6 class="ml-2 mt-1">Replies</h6>
+                                </div>
+                            </div>
+
+                            <div id="lapse-{{j.id}}" class="collapse">
+                               <form method="post" action="">
+                                   {% csrf_token %}
+                                    <!--{{form.details}}-->
+                                    <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+                                        {% if request.user.customer.profile_pic %}
+                                        <img class="img-fluid img-responsive rounded-circle mr-2" src="{{request.user.customer.profile_pic.url}}" width="38">
+                                        {% endif %}
+                                        <label for="filee">upload file</label>
+                                        <input type="file" name="filee" id="filee">
+                                       <textarea class="form-control ml-1 shadow-none textarea" name="details" placeholder="Reply"></textarea>
+                                        <input type="hidden" value="{{i.id}}"name="idd">
+                                        <button class="btn btn-primary" type="submit">Reply</button>
+                                    </div>
+                            </form>
+                                {% for r in j.id|replyy %}
+                                     <div class="d-flex flex-row align-items-center commented-user">
+                                        {% if r.customer.profile_pic %}
+                                          <img class="img-fluid img-responsive rounded-circle mr-2" src="{{r.customer.profile_pic.url}}" width="38">
+                                         {% endif %}
+                                           <h5 class="mr-2">{{r.customer.name}}</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">{{r.created|timesince}} ago </span>
+                                     </div>
+                                     {% if r.filefield %}
+                                      <div><img class="img-fluid img-responsive  mr-2" src="{{r.filefield.url}}" width="50"></div>
+                                      {% endif %}
+                                     <div class="comment-text-sm"><span>{{r.reply_text}}</span></div>
+                                {% endfor %}
+                            </div>
+
+                        </div>    <hr>
+                       {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                                  {% endfor %}
+
+                                <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js'></script>
+                                <script type='text/javascript' src=''></script>
+                                <script type='text/javascript' src=''></script>
+                                <script type='text/Javascript'>$(document).ready(function(){
+
+
+
+$('#collapse-1').on('shown.bs.collapse', function() {
+
+$(".servicedrop").addClass('fa-chevron-up').removeClass('fa-chevron-down');
+});
+
+$('#collapse-1').on('hidden.bs.collapse', function() {
+$(".servicedrop").addClass('fa-chevron-down').removeClass('fa-chevron-up');
+});
+
+});
+</script>
+
+
+                                </body>
+
+   {% endblock body %}
+
+
+
+                            </html>
+
