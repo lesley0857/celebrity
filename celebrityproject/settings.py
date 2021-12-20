@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'celebrityapp',
     'pagedown',
      'storages',
+    'cv2',
    ]
 
 MIDDLEWARE = [
