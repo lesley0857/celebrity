@@ -10,7 +10,7 @@ from.form import  *
 
 from django.views.decorators import gzip
 from django.http import StreamingHttpResponse
-import cv2
+#import cv2
 import threading
 
 # Create your views here.
