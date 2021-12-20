@@ -8,6 +8,11 @@ from django.utils import timezone
 from django.contrib import messages
 from.form import  *
 
+from django.views.decorators import gzip
+from django.http import StreamingHttpResponse
+import cv2
+import threading
+
 # Create your views here.
 
 from allauth.account.views import SignupView
@@ -63,6 +68,41 @@ def home_view(request):
                }
     return render(request, 'account/base.html', context)
 
+@gzip.gzip_page
+def stream_view(request):
+    try:
+        cam = VideoCamera()
+        return StreamingHttpResponse(gen(cam), content_type='multipart/x-mixed-replace;boundary=frame')
+    except:
+        pass
+    return render(request,'stream.html')
+
+class VideoCamera(object):
+    def __init__(self):
+        self.video = cv2.VideoCapture(0,cv2.CAP_DSHOW)
+        (self.grabbed, self.frame) = self.video.read()
+        threading.Thread(target=self.update, args=()).start()
+
+    def __del__(self):
+        self.video.release()
+        self.cv2.destroyAllWindows()
+
+    def get_frame(self):
+        image = self.frame
+        _, jpeg = cv2.imencode('.jpg',image)
+        return jpeg.tobytes()
+
+    def update(self):
+        while True:
+            (self.grabbed, self.frame) = self.video.read()
+
+def gen(camera):
+    while True:
+        frame = camera.get_frame()
+        yield (b'--frame\r\n'
+               b'Content-Type:image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+
+
 class jview(View):
     def get(self, request, *args, **kwargs):
         if not self.request.user.is_authenticated:
@@ -81,15 +121,16 @@ class jview(View):
         comments = Comments.objects.all()
         t = request.POST.get('details')
         post_id = request.POST.get('idd')
-        file_field =  request.POST.get('filefield')
-        print(file_field)
+        file_field =  request.FILES.getlist('filefield')
+        print('filefield',file_field)
         print(t)
         print("lll",post_id)
         print(request.FILES)
+        #for i in file_field:
         create_comment = Comments.objects.create(comment_text=t,
                                                  customer_id=request.user.customer.id,
                                                  posts_id=post_id,
-                                                 filefield=request.FILES['filefield'])
+                                                 filefield=file_field)
 
         create_reply = Replies.objects.create()
 

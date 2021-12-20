@@ -114,7 +114,7 @@ body{
                 <form method="post" action="" enctype="multipart/form-data">
                    {% csrf_token %}
                     <!--{{form.details}}-->
-                    {{form.filefield}}
+                    <input type="file" multiple name="filefield"> klk
                     <div class="d-flex flex-row add-comment-section mt-4 mb-4">
                         {% if request.user.customer.profile_pic %}
                         <img class="img-fluid img-responsive rounded-circle mr-2" src="{{request.user.customer.profile_pic.url}}" width="38">

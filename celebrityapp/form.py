@@ -23,7 +23,7 @@ class create_customer(forms.ModelForm):
 
 class create_post(forms.ModelForm):
     #details = forms.CharField(widget=forms.TextInput)
-    #details = forms.CharField(widget=PagedownWidget)
+    #filefield  = forms.CharField(widget=forms.FileInput(attrs=['multiple']))
     class Meta:
         model = Comments
         fields ='__all__'

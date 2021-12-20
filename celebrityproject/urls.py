@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('blog', jview.as_view(), name='blog'),
     path('', home_view, name='home'),
+    path('stream',stream_view,name='stream_view'),
     path('accounts/profile/', home_view, name='accounts_login'),
     path('accounts/', include('allauth.urls')),
 ]
